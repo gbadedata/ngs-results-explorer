@@ -1,7 +1,6 @@
 """Unit tests for the validation engine."""
 import pytest
 from src.validator import (
-    validate_record,
     validate_batch,
     completeness_score,
     rule_gene_id_format,

@@ -109,7 +109,7 @@ def fetch_de_results(accession: str) -> list[dict]:
     }
 
     time.sleep(0.4)
-    search_resp = requests.get(
+    requests.get(
         "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi",
         params=search_params,
         timeout=30,

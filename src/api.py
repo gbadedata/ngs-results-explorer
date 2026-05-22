@@ -14,7 +14,6 @@ Endpoints:
 """
 from contextlib import asynccontextmanager
 from typing import Optional
-import json
 import os
 
 from fastapi import FastAPI, HTTPException, Query

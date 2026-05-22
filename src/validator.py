@@ -5,11 +5,9 @@ quarantined with rejection reason — never silently dropped.
 """
 import os
 import re
-import json
 import csv
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
-from typing import Optional
 import structlog
 
 from src.config import settings
@@ -305,12 +303,12 @@ if __name__ == "__main__":
     records = fetch_de_results("GSE183947")
     results = validate_batch(records)
 
-    print(f"\n=== Validation Summary ===")
+    print("\n=== Validation Summary ===")
     print(f"Total records : {results['stats']['total']}")
     print(f"Passed        : {results['stats']['passed']}")
     print(f"Quarantined   : {results['stats']['quarantined']}")
     print(f"Pass rate     : {results['stats']['pass_rate']}%")
     print(f"Avg completeness: {results['stats']['avg_completeness']}")
-    print(f"\nQuarantined records:")
+    print("\nQuarantined records:")
     for q in results["quarantined"]:
         print(f"  {q['gene_id']} | {q['rejection_reasons']}")

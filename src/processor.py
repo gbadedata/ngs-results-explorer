@@ -157,7 +157,7 @@ def load_processed_data() -> pd.DataFrame:
     )
     if not os.path.exists(parquet_path):
         raise FileNotFoundError(
-            f"Processed data not found at {parquet_path}. "
+            "Processed data not found at {parquet_path}. "
             "Run the pipeline first: python3 -m src.processor"
         )
     return pd.read_parquet(parquet_path)
@@ -170,7 +170,7 @@ def load_summary() -> dict:
     )
     if not os.path.exists(summary_path):
         raise FileNotFoundError(
-            f"Summary not found at {summary_path}. "
+            "Summary not found at {summary_path}. "
             "Run the pipeline first: python3 -m src.processor"
         )
     with open(summary_path) as f:
@@ -190,17 +190,17 @@ if __name__ == "__main__":
 
     summary = load_summary()
 
-    print(f"\n=== Processing Summary ===")
+    print("\n=== Processing Summary ===")
     print(f"Total genes       : {summary['total_genes']}")
     print(f"Significant       : {summary['significant_genes']}")
     print(f"Upregulated       : {summary['upregulated']}")
     print(f"Downregulated     : {summary['downregulated']}")
     print(f"Not significant   : {summary['not_significant']}")
     print(f"% Significant     : {summary['pct_significant']}%")
-    print(f"\nTop upregulated genes:")
+    print("\nTop upregulated genes:")
     for g in summary["top_upregulated"]:
         print(f"  {g['gene_name']:12} log2FC={g['log2fc']:.2f}  padj={g['padj']:.2e}")
-    print(f"\nTop downregulated genes:")
+    print("\nTop downregulated genes:")
     for g in summary["top_downregulated"]:
         print(f"  {g['gene_name']:12} log2FC={g['log2fc']:.2f}  padj={g['padj']:.2e}")
-    print(f"\nProcessed Parquet: data/processed/de_results.parquet")
+    print("\nProcessed Parquet: data/processed/de_results.parquet")

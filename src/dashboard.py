@@ -6,9 +6,7 @@ fold-change distribution, and QC summary panel.
 This mirrors the visualisation layer of commercial NGS platforms
 like Basepair — interactive, publication-ready, browser-based.
 """
-import pandas as pd
 import plotly.graph_objects as go
-import plotly.express as px
 import dash
 from dash import dcc, html, dash_table, Input, Output, callback
 import dash_bootstrap_components as dbc
@@ -48,6 +46,7 @@ def _qc_row(label: str, value: str):
         html.Hr(style={"borderColor": COLOURS["border"],
                        "margin": "6px 0"}),
     ])
+
 
 # ── App initialisation ───────────────────────────────────────────
 app = dash.Dash(
@@ -90,7 +89,8 @@ def stat_card(title: str, value: str, subtitle: str = "", colour: str = "#00d4aa
 # ── Layout ───────────────────────────────────────────────────────
 app.layout = dbc.Container(
     fluid=True,
-    style={"backgroundColor": COLOURS["background"], "minHeight": "100vh", "padding": "24px"},
+    style={"backgroundColor": COLOURS["background"],
+           "minHeight": "100vh", "padding": "24px"},
     children=[
 
         # Header
@@ -193,7 +193,8 @@ app.layout = dbc.Container(
                     dbc.CardBody([
                         _qc_row("Pass rate", "96.23%"),
                         _qc_row("Quarantined", "2 records"),
-                        _qc_row("Avg completeness", f"{summary['avg_completeness']*100:.0f}%"),
+                        _qc_row("Avg completeness",
+                                f"{summary['avg_completeness']*100:.0f}%"),
                         _qc_row("Validation rules", "9 applied"),
                         _qc_row("Condition", summary["condition"]),
                         _qc_row("Accession", summary["accession"]),
@@ -261,8 +262,8 @@ app.layout = dbc.Container(
                 dbc.Card([
                     dbc.CardHeader(
                         html.H5("Differentially Expressed Genes",
-                                 style={"color": COLOURS["text"],
-                                        "marginBottom": "0"}),
+                                style={"color": COLOURS["text"],
+                                       "marginBottom": "0"}),
                     ),
                     dbc.CardBody([
                         html.Div(id="table-container"),
@@ -280,7 +281,7 @@ app.layout = dbc.Container(
             dbc.Col([
                 html.Hr(style={"borderColor": COLOURS["border"]}),
                 html.P(
-                    "NGS Results Explorer · github.com/gbadedata/ngs-results-explorer · "
+                    "NGS Results Explorer · gbadedata/ngs-results-explorer · "
                     "Built with Python, Plotly Dash, FastAPI, pandas · "
                     "Data: NCBI GEO GSE183947",
                     style={"color": COLOURS["subtext"],
@@ -424,7 +425,7 @@ def update_distribution(_):
     ]
     counts = df["log2fc_bin"].value_counts()
     values = [int(counts.get(b, 0)) for b in bin_order]
-    colours_bars = [
+    _ = [
         COLOURS["downregulated"] if "−" in b or "-" in b and b != "-1 to 1"
         else COLOURS["upregulated"] if b in ["1 to 2", "2 to 4", "≥ 4"]
         else COLOURS["not_significant"]
