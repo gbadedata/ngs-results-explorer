@@ -532,4 +532,4 @@ def update_table(regulation_filter, min_log2fc):
 if __name__ == "__main__":
     import structlog
     structlog.configure()
-    app.run(debug=True, port=8050)
+    app.run(debug=True, port=8052)
